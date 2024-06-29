@@ -12,6 +12,7 @@ namespace CrystalFences
         public const int DEFAULT_STONE_FENCE = 2;
         public const int DEFAULT_IRON_FENCE = 3;
         public const int DEFAULT_HARDWOOD_FENCE = 4;
+        public static readonly string[] AVAILABLE_CRYSTAL_COLOURS = new string[] { "yellow", "green", "red", "purple" };
 
         /*********
         ** Public methods
@@ -23,6 +24,7 @@ namespace CrystalFences
             config = Helper.ReadConfig<ModConfig>();
             CheckConfig();
             Helper.WriteConfig(config);
+
             helper.Events.Content.AssetRequested += OnAssetRequested;
         }
 
@@ -33,40 +35,36 @@ namespace CrystalFences
         {
             if (e.Name.IsEquivalentTo("LooseSprites/Fence1"))
             {
-                e.LoadFromModFile<Texture2D>($"assets/CrystalFence{config?.WoodFence}.png", AssetLoadPriority.Medium);
+                e.LoadFromModFile<Texture2D>($"assets/sprites/Fence1.png", AssetLoadPriority.Medium);
             }
             else if (e.Name.IsEquivalentTo("LooseSprites/Fence2"))
             {
-                e.LoadFromModFile<Texture2D>($"assets/CrystalFence{config?.StoneFence}.png", AssetLoadPriority.Medium);
+                e.LoadFromModFile<Texture2D>($"assets/sprites/Fence2.png", AssetLoadPriority.Medium);
             }
             else if (e.Name.IsEquivalentTo("LooseSprites/Fence3"))
             {
-                e.LoadFromModFile<Texture2D>($"assets/CrystalFence{config?.IronFence}.png", AssetLoadPriority.Medium);
+                e.LoadFromModFile<Texture2D>($"assets/sprites/Fence3.png", AssetLoadPriority.Medium);
             }
             else if (e.Name.IsEquivalentTo("LooseSprites/Fence5"))
             {
-                e.LoadFromModFile<Texture2D>($"assets/CrystalFence{config?.HardwoodFence}.png", AssetLoadPriority.Medium);
+                e.LoadFromModFile<Texture2D>($"assets/sprites/Fence5.png", AssetLoadPriority.Medium);
             }
         }
 
         private void CheckConfig()
         {
-            int numberOfFenceSprites = GetNumberOfFenceSprites();
             if (config == null) return;
-            if (config.WoodFence < 1 || config.WoodFence > numberOfFenceSprites) config.WoodFence = DEFAULT_WOOD_FENCE;
-            if (config.StoneFence < 1 || config.StoneFence > numberOfFenceSprites) config.StoneFence = DEFAULT_STONE_FENCE;
-            if (config.IronFence < 1 || config.IronFence > numberOfFenceSprites) config.IronFence = DEFAULT_IRON_FENCE;
-            if (config.HardwoodFence < 1 || config.HardwoodFence > numberOfFenceSprites) config.HardwoodFence = DEFAULT_HARDWOOD_FENCE;
+            CheckFenceConfigs(config.WoodFence);
+            CheckFenceConfigs(config.StoneFence);
+            CheckFenceConfigs(config.IronFence);
+            CheckFenceConfigs(config.HardwoodFence);
         }
 
-        private int GetNumberOfFenceSprites()
+        private void CheckFenceConfigs(ModConfigFence fence)
         {
-            string path = Path.Combine(Helper.DirectoryPath, "assets");
-            string[] files = Directory.GetFiles(path);
-
-            var filteredFiles = files.Where(file => Path.GetFileName(file).Contains("CrystalFence") && Path.GetFileName(file).EndsWith(".png"));
-
-            return filteredFiles.Count();
+            if (!AVAILABLE_CRYSTAL_COLOURS.Contains(fence.Crystal.ToLower())) fence.Crystal = "yellow";
+            fence.Crystal = fence.Crystal.ToLower();
+            if (fence.Model < 1 && fence.Model > 2) fence.Model = 1;
         }
     }
 }

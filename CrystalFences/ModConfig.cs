@@ -2,9 +2,16 @@
 {
     public class ModConfig
     {
-        public int WoodFence { get; set; } = ModEntry.DEFAULT_WOOD_FENCE;
-        public int StoneFence { get; set; } = ModEntry.DEFAULT_STONE_FENCE;
-        public int IronFence { get; set; } = ModEntry.DEFAULT_IRON_FENCE;
-        public int HardwoodFence { get; set; } = ModEntry.DEFAULT_HARDWOOD_FENCE;
+        public ModConfigFence WoodFence { get; set; } = new ModConfigFence() { Crystal = "yellow" };
+        public ModConfigFence StoneFence { get; set; } = new ModConfigFence() { Crystal = "green" };
+        public ModConfigFence IronFence { get; set; } = new ModConfigFence() { Crystal = "red" };
+        public ModConfigFence HardwoodFence { get; set; } = new ModConfigFence() { Crystal = "purple" };
     }
+
+    public class ModConfigFence
+    {
+        // Original 1, custom 2
+        public int Model { get; set; } = 1;
+        public string Crystal { get; set; } = "yellow";
+        public int Stage { get; set; } = 1;
 }
