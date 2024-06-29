@@ -12,6 +12,6 @@
     {
         // Original 1, custom 2
         public int Model { get; set; } = 1;
-        public string Crystal { get; set; } = "yellow";
+        public string Crystal { get; set; } = "";
         public int Stage { get; set; } = 1;
 }

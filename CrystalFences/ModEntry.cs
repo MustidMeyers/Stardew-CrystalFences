@@ -12,7 +12,7 @@ namespace CrystalFences
         public const int DEFAULT_STONE_FENCE = 2;
         public const int DEFAULT_IRON_FENCE = 3;
         public const int DEFAULT_HARDWOOD_FENCE = 4;
-        public static readonly string[] AVAILABLE_CRYSTAL_COLOURS = new string[] { "yellow", "green", "red", "purple" };
+        public static readonly string[] AVAILABLE_CRYSTAL_COLOURS = new string[] { "", "yellow", "green", "red", "purple" };
 
         /*********
         ** Public methods
@@ -62,7 +62,7 @@ namespace CrystalFences
 
         private void CheckFenceConfigs(ModConfigFence fence)
         {
-            if (!AVAILABLE_CRYSTAL_COLOURS.Contains(fence.Crystal.ToLower())) fence.Crystal = "yellow";
+            if (!AVAILABLE_CRYSTAL_COLOURS.Contains(fence.Crystal.ToLower())) fence.Crystal = "";
             fence.Crystal = fence.Crystal.ToLower();
             if (fence.Model < 1 && fence.Model > 2) fence.Model = 1;
         }
