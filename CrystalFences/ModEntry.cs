@@ -1,14 +1,6 @@
-﻿using System;
-using System.Xml.Linq;
-using System.Xml;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewModdingAPI.Utilities;
-using StardewValley;
-using Newtonsoft.Json;
-using xTile;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace CrystalFences
 {
@@ -16,8 +8,6 @@ namespace CrystalFences
     internal sealed class ModEntry : Mod
     {
         private ModConfig? config;
-        private const string CONTENT_FILEPATH = "content.json";
-        private const string IMAGES_FILEPATH = "./assests/";
         public const int DEFAULT_WOOD_FENCE = 1;
         public const int DEFAULT_STONE_FENCE = 2;
         public const int DEFAULT_IRON_FENCE = 3;
@@ -72,7 +62,6 @@ namespace CrystalFences
         private int GetNumberOfFenceSprites()
         {
             string path = Path.Combine(Helper.DirectoryPath, "assets");
-            Monitor.Log($"Path to assets: {path}");
             string[] files = Directory.GetFiles(path);
 
             var filteredFiles = files.Where(file => Path.GetFileName(file).Contains("CrystalFence") && Path.GetFileName(file).EndsWith(".png"));
