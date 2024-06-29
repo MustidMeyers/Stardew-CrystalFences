@@ -1,0 +1,9 @@
+{
+	"Name": "Crystal Fences",
+	"Author": "MustidMeyers",
+	"Version": "1.0.0",
+	"Description": "Adds crystal fence sprites for all existing fence types.",
+	"UniqueID": "MustidMeyers.CrystalFences",
+	"EntryDll": "CrystalFences.dll",
+	"UpdateKeys": []
+}
