@@ -102,7 +102,7 @@ namespace CrystalFences
                     if (config.StoneFence.Model == 1) return 1; //2
                     return 1;
                 case "iron":
-                    if (config.StoneFence.Model == 1) return 1; //3
+                    if (config.IronFence.Model == 1) return 3;
                     return 1;
             }
             return 1;
