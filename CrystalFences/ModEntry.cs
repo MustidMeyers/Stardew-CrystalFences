@@ -57,10 +57,10 @@ namespace CrystalFences
         private void SetupFenceTextures()
         {
             if (config == null) return;
-            string woodFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.WoodFence.Model == 1 ? "Fence1.png" : "CustomFence1.png");
-            string stoneFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.WoodFence.Model == 1 ? "Fence2.png" : "CustomFence1.png");
-            string ironFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.WoodFence.Model == 1 ? "Fence3.png" : "CustomFence1.png");
-            string hardwoodFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.WoodFence.Model == 1 ? "Fence5.png" : "CustomFence1.png");
+            string woodFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.WoodFence.Model == 1 ? "Fence1.png" : $"CustomFence{config.WoodFence.Model - 1}.png");
+            string stoneFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.StoneFence.Model == 1 ? "Fence2.png" : $"CustomFence{config.StoneFence.Model - 1}.png");
+            string ironFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.IronFence.Model == 1 ? "Fence3.png" : $"CustomFence{config.IronFence.Model - 1}.png");
+            string hardwoodFencePath = Path.Combine(Helper.DirectoryPath, "assets", "fences", config.HardwoodFence.Model == 1 ? "Fence5.png" : $"CustomFence{config.HardwoodFence.Model - 1}.png");
 
             Texture2D woodFence = Helper.ModContent.Load<Texture2D>(woodFencePath);
             Texture2D stoneFence = Helper.ModContent.Load<Texture2D>(stoneFencePath);
