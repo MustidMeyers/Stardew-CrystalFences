@@ -14,4 +14,5 @@
         public int Model { get; set; } = 1;
         public string Crystal { get; set; } = "";
         public int Stage { get; set; } = 1;
+    }
 }
