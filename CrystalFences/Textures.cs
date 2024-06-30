@@ -1,11 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
+using StardewValley.TerrainFeatures;
 
 namespace CrystalFences
 {
     public class Textures
     {
+        public static readonly Color YELLOW_COLOUR = new Color(255, 255, 0);
+        public static readonly Color RED_COLOUR = new Color(255, 40, 40);
+        public static readonly Color GREEN_COLOUR = new Color(0, 230, 20);
+        public static readonly Color PURPLE_COLOUR = new Color(173, 0, 230);
 
         public static Texture2D TintTexture(Texture2D originalTexture, Color tint)
         {
@@ -52,30 +57,55 @@ namespace CrystalFences
             {
                 Texture2D crystal = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "crystals", config.WoodFence.Crystal));
                 Texture2D newTexture = Textures.OverlayTextures(woodFence, crystal);
-                //if (config.WoodFence.Stage > 0) newTexture = TintTexture(newTexture, FetchColour(config.WoodFence.Crystal));
+                Texture2D stage = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "stages", $"Type{GetFenceType(config, "wood")}Stage{config.WoodFence.Stage}"));
+                if (config.WoodFence.Stage > 0) stage = TintTexture(stage, FetchColour(config.WoodFence.Crystal));
+                newTexture = OverlayTextures(newTexture, stage);
                 SaveTextureAsPng(newTexture, Path.Combine(helper.DirectoryPath, "assets", "sprites", "Fence1.png"));
             }
             if (!string.IsNullOrEmpty(config.StoneFence.Crystal))
             {
                 Texture2D crystal = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "crystals", config.StoneFence.Crystal));
                 Texture2D newTexture = Textures.OverlayTextures(stoneFence, crystal);
-                //if (config.WoodFence.Stage > 0) newTexture = TintTexture(newTexture, FetchColour(config.StoneFence.Crystal));
+                Texture2D stage = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "stages", $"Type{GetFenceType(config, "stone")}Stage{config.StoneFence.Stage}"));
+                if (config.WoodFence.Stage > 0) stage = TintTexture(stage, FetchColour(config.StoneFence.Crystal));
+                newTexture = OverlayTextures(newTexture, stage);
                 SaveTextureAsPng(newTexture, Path.Combine(helper.DirectoryPath, "assets", "sprites", "Fence2.png"));
             }
             if (!string.IsNullOrEmpty(config.IronFence.Crystal))
             {
                 Texture2D crystal = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "crystals", config.IronFence.Crystal));
                 Texture2D newTexture = Textures.OverlayTextures(ironFence, crystal);
-                //if (config.WoodFence.Stage > 0) newTexture = TintTexture(newTexture, FetchColour(config.IronFence.Crystal));
+                Texture2D stage = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "stages", $"Type{GetFenceType(config, "iron")}Stage{config.IronFence.Stage}"));
+                if (config.WoodFence.Stage > 0) stage = TintTexture(stage, FetchColour(config.IronFence.Crystal));
+                newTexture = OverlayTextures(newTexture, stage);
                 SaveTextureAsPng(newTexture, Path.Combine(helper.DirectoryPath, "assets", "sprites", "Fence3.png"));
             }
             if (!string.IsNullOrEmpty(config.HardwoodFence.Crystal))
             {
                 Texture2D crystal = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "crystals", config.HardwoodFence.Crystal));
                 Texture2D newTexture = Textures.OverlayTextures(hardwoodFence, crystal);
-                //if (config.WoodFence.Stage > 0) newTexture = TintTexture(newTexture, FetchColour(config.HardwoodFence.Crystal));
+                Texture2D stage = helper.ModContent.Load<Texture2D>(Path.Combine(helper.DirectoryPath, "assets", "stages", $"Type{GetFenceType(config, "hardwood")}Stage{config.HardwoodFence.Stage}"));
+                if (config.WoodFence.Stage > 0) stage = TintTexture(stage, FetchColour(config.HardwoodFence.Crystal));
+                newTexture = OverlayTextures(newTexture, stage);
                 SaveTextureAsPng(newTexture, Path.Combine(helper.DirectoryPath, "assets", "sprites", "Fence5.png"));
             }
+        }
+
+        public static int GetFenceType(ModConfig config, string fence)
+        {
+            switch (fence.ToLower())
+            {
+                case "wood":
+                case "hardwood":
+                    return 1;
+                case "stone":
+                    if (config.StoneFence.Model == 1) return 1; //2
+                    return 1;
+                case "iron":
+                    if (config.StoneFence.Model == 1) return 1; //3
+                    return 1;
+            }
+            return 1;
         }
 
         public static Texture2D OverlayTextures(Texture2D baseTexture, Texture2D overlayTexture)
@@ -127,13 +157,13 @@ namespace CrystalFences
             switch (colour.ToLower())
             {
                 case "yellow":
-                    return Color.Yellow;
+                    return YELLOW_COLOUR;
                 case "red":
-                    return Color.Red;
+                    return RED_COLOUR;
                 case "green":
-                    return Color.Green;
+                    return GREEN_COLOUR;
                 case "purple":
-                    return Color.Purple;
+                    return PURPLE_COLOUR;
                 default:
                     return Color.White;
             }
